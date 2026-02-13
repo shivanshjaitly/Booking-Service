@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Add Address</h2>
+
+<form th:action="@{/users/{id}/address(id=${userId})}"
+      th:object="${address}" method="post">
+
+    City:
+    <input type="text" th:field="*{city}"/>
+
+    State:
+    <input type="text" th:field="*{state}"/>
+
+    Country:
+    <input type="text" th:field="*{country}"/>
+
+    <button type="submit">Save</button>
+
+</form>
+
+</body>
+</html>

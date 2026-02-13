@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Create Booking</h2>
+
+<form th:action="@{/users/{id}/booking(id=${userId})}"
+      th:object="${booking}" method="post">
+
+    Booking Date:
+    <input type="text" th:field="*{bookingDate}"/>
+
+    Status:
+    <input type="text" th:field="*{status}"/>
+
+    <button type="submit">Save</button>
+
+</form>
+
+</body>
+</html>

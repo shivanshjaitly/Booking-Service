@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2>Users</h2>
+
+<a href="/users/new">Create User</a>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>City</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="user : ${users}">
+
+        <td th:text="${user.id}"></td>
+
+        <td th:text="${user.name}"></td>
+
+        <td th:text="${user.email}"></td>
+
+        <td th:text="${user.address != null ? user.address.city : 'No Address'}"></td>
+
+        <td>
+            <a th:href="@{/users/{id}/address(id=${user.id})}">Add Address</a>
+            <a th:href="@{/users/{id}/booking(id=${user.id})}">Add Booking</a>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>
