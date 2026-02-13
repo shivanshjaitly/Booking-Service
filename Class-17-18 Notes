@@ -1,0 +1,92 @@
+User ↔ Address
+
+Meaning: One user has one address.
+
+@OneToOne
+@JoinColumn(name = "address_id")
+private Address address;
+
+users table
+------------
+id
+name
+email
+password
+address_id   ← foreign key
+
+Step 3: One-to-Many / Many-to-One Relationship
+User ↔ Booking
+
+Meaning:
+
+One user → many bookings
+
+Many bookings → one user
+
+Explanation
+
+Owning side:
+
+Booking
+
+
+Because it has:
+
+@JoinColumn(name = "user_id")
+
+
+Database table:
+
+bookings
+---------
+id
+booking_date
+status
+user_id  ← foreign key
+
+Step 4: Many-to-Many Relationship
+User ↔ Role
+
+Meaning:
+
+One user → many roles
+
+One role → many users
+
+Example:
+
+USER
+
+ADMIN
+
+                Browser (User)
+                      │
+                      │ HTTP Request
+                      ▼
+
+              Booking Service
+        (Spring Boot + Thymeleaf)
+
+      ┌────────────────────────────┐
+      │ Controller Layer           │
+      │ Service Layer              │
+      │ Repository Layer           │
+      │ JPA / Hibernate            │
+      └──────────────┬─────────────┘
+                     │
+                     │ REST API Call (Feign)
+                     ▼
+
+              Inventory Service
+        (Spring Boot + REST API)
+
+      ┌────────────────────────────┐
+      │ InventoryController        │
+      │ InventoryService           │
+      │ InventoryRepository        │
+      │ JPA / Hibernate            │
+      └──────────────┬─────────────┘
+                     │
+                     ▼
+
+                MySQL Database
