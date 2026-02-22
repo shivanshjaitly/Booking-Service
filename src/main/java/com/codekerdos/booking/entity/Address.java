@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,6 @@ public class Address {
 
     private String country;
 
-    // getters setters
     public Long getId() { return id; }
 
     public String getCity() { return city; }

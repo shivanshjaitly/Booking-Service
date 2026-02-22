@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Booking</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
 <body>
 
-<h2>Create Booking</h2>
+<div class="container">
 
-<form th:action="@{/users/{id}/booking(id=${userId})}"
-      th:object="${booking}" method="post">
+    <h2>Create Booking</h2>
 
-    Booking Date:
-    <input type="text" th:field="*{bookingDate}"/>
+    <form th:action="@{/users/{id}/booking(id=${userId})}"
+          th:object="${booking}"
+          method="post"
+          class="form-card">
 
-    Status:
-    <input type="text" th:field="*{status}"/>
+        <div class="form-group">
+            <label>Booking Date</label>
+            <input type="date" th:field="*{bookingDate}" required />
+        </div>
 
-    <button type="submit">Save</button>
+        <div class="form-group">
+            <label>Status</label>
+            <select th:field="*{status}" required>
+                <option value="">Select Status</option>
+                <option value="CONFIRMED">Confirmed</option>
+                <option value="PENDING">Pending</option>
+                <option value="CANCELLED">Cancelled</option>
+            </select>
+        </div>
 
-</form>
+        <div class="form-actions">
+            <button type="submit" class="btn-success">Save Booking</button>
+            <a href="/users" class="btn-secondary">Back</a>
+        </div>
+
+    </form>
+
+</div>
 
 </body>
 </html>

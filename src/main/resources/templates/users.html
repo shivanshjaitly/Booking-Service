@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
 <body>
 
-<h2>Users</h2>
+<div class="container">
 
-<a href="/users/new">Create User</a>
+    <h2>User Management</h2>
 
-<table border="1">
+    <a th:href="@{/users/new}" class="btn">Create User</a>
 
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>City</th>
-        <th>Actions</th>
-    </tr>
+    <table>
 
-    <tr th:each="user : ${users}">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
 
-        <td th:text="${user.id}"></td>
+        <tbody>
 
-        <td th:text="${user.name}"></td>
+        <tr th:each="user : ${users}">
 
-        <td th:text="${user.email}"></td>
+            <td th:text="${user.id}"></td>
 
-        <td th:text="${user.address != null ? user.address.city : 'No Address'}"></td>
+            <td th:text="${user.name}"></td>
 
-        <td>
-            <a th:href="@{/users/{id}/address(id=${user.id})}">Add Address</a>
-            <a th:href="@{/users/{id}/booking(id=${user.id})}">Add Booking</a>
-        </td>
+            <td th:text="${user.email}"></td>
 
-    </tr>
+            <td>
+                <span th:if="${user.address != null}"
+                      th:text="${user.address.city}"></span>
 
-</table>
+                <span th:if="${user.address == null}">
+                    No Address
+                </span>
+            </td>
+
+            <td th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+
+            <td>
+                <a th:href="@{/users/{id}/address(id=${user.id})}"
+                   class="btn">
+                    Add Address
+                </a>
+
+                <a th:href="@{/users/{id}/booking(id=${user.id})}"
+                   class="btn">
+                    Add Booking
+                </a>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
 
 </body>
 </html>

@@ -30,7 +30,7 @@ public class UserController {
     // View all users
     @GetMapping
     public String getUsers(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userRepository.findAllWithAddress());
         return "users";
     }
 
@@ -99,5 +99,25 @@ public class UserController {
 
         return "redirect:/users";
     }
+
+    @PostMapping("/users/{userId}/booking/{bookingId}/delete")
+    public String deleteBooking(@PathVariable Long userId,
+                                @PathVariable Long bookingId) {
+
+        User user = userRepository.findById(userId).orElseThrow();
+
+        Booking bookingToRemove = user.getBookings()
+                .stream()
+                .filter(b -> b.getId().equals(bookingId))
+                .findFirst()
+                .orElseThrow();
+
+        user.removeBooking(bookingToRemove);
+
+        userRepository.save(user); // orphanRemoval deletes booking
+
+        return "redirect:/users";
+    }
+
 
 }

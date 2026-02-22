@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Address</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
 <body>
 
-<h2>Add Address</h2>
+<div class="container">
 
-<form th:action="@{/users/{id}/address(id=${userId})}"
-      th:object="${address}" method="post">
+    <h2>Add Address</h2>
 
-    City:
-    <input type="text" th:field="*{city}"/>
+    <form th:action="@{/users/{id}/address(id=${userId})}"
+          th:object="${address}"
+          method="post"
+          class="form-card">
 
-    State:
-    <input type="text" th:field="*{state}"/>
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" th:field="*{city}" required />
+        </div>
 
-    Country:
-    <input type="text" th:field="*{country}"/>
+        <div class="form-group">
+            <label>State</label>
+            <input type="text" th:field="*{state}" required />
+        </div>
 
-    <button type="submit">Save</button>
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" th:field="*{country}" required />
+        </div>
 
-</form>
+        <div class="form-actions">
+            <button type="submit" class="btn-success">Save Address</button>
+            <a href="/users" class="btn-secondary">Back</a>
+        </div>
+
+    </form>
+
+</div>
 
 </body>
 </html>

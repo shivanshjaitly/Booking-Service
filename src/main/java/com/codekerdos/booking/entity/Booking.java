@@ -1,10 +1,11 @@
 package com.codekerdos.booking.entity;
 
+import com.codekerdos.booking.entity.BaseAuditEntity;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class Booking extends BaseAuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +15,13 @@ public class Booking {
 
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -45,9 +50,4 @@ public class Booking {
     public User getUser() {
         return user;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
-
