@@ -7,9 +7,15 @@ import com.codekerdos.booking.repository.AddressRepository;
 import com.codekerdos.booking.repository.BookingRepository;
 import com.codekerdos.booking.repository.UserRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -117,6 +123,34 @@ public class UserController {
         userRepository.save(user); // orphanRemoval deletes booking
 
         return "redirect:/users";
+    }
+
+    @GetMapping("/sorted")
+    public String getSortedUsers(Model model) {
+
+        List<User> users =
+                userRepository.findAllWithAddressSorted(
+                        Sort.by(Sort.Direction.ASC, "name"));
+
+        model.addAttribute("users", users);
+
+        return "users";
+    }
+
+    @GetMapping("/paginated")
+    public String getPaginatedUsers(Model model,
+                                    @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "5") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<User> userPage =
+                userRepository.findAllWithAddress(pageable);
+
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("totalPages", userPage.getTotalPages());
+
+        return "users";
     }
 
 

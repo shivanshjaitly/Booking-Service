@@ -2,6 +2,9 @@ package com.codekerdos.booking.service;
 
 import com.codekerdos.booking.entity.User;
 import com.codekerdos.booking.repository.UserRepository;
+import org.jspecify.annotations.Nullable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +33,13 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Page<User> getPaginatedUsers(int page, int size) {
+        return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public  User save(User user) {
+        return  userRepository.save(user);
     }
 }

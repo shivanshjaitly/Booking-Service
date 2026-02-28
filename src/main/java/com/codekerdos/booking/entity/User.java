@@ -5,6 +5,16 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "User.findByEmailNamed",
+        query = "SELECT u FROM User u WHERE u.email = :email"
+)
+
+@NamedNativeQuery(
+        name = "User.findAllNative",
+        query = "SELECT * FROM users",
+        resultClass = User.class
+)
 @Entity
 @Table(name = "users")
 public class User extends BaseAuditEntity {

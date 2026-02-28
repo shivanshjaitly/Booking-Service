@@ -38,25 +38,16 @@
 
             <td th:text="${user.email}"></td>
 
-            <td>
-                <span th:if="${user.address != null}"
-                      th:text="${user.address.city}"></span>
-
-                <span th:if="${user.address == null}">
-                    No Address
-                </span>
-            </td>
+            <td th:text="${user.address != null ? user.address.city : 'No Address'}"></td>
 
             <td th:text="${#temporals.format(user.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
 
             <td>
-                <a th:href="@{/users/{id}/address(id=${user.id})}"
-                   class="btn">
+                <a th:href="@{/users/{id}/address(id=${user.id})}" class="btn">
                     Add Address
                 </a>
 
-                <a th:href="@{/users/{id}/booking(id=${user.id})}"
-                   class="btn">
+                <a th:href="@{/users/{id}/booking(id=${user.id})}" class="btn">
                     Add Booking
                 </a>
             </td>
