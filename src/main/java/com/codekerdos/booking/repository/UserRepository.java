@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -40,5 +41,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             countQuery = "SELECT COUNT(u) FROM User u")
     Page<User> findAllWithAddress(Pageable pageable);
 
+    @EntityGraph(attributePaths = {"roles"})
+    Optional<User> findByEmail(String email);
 
 }
